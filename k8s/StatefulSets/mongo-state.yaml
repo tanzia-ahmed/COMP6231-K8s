@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-stateful-app
+  labels:
+    app: mongo-state
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mongo-state
+  template:
+    metadata:
+        labels:
+          app: mongo-state
+    spec:
+      containers:
+       - name: mongo-state
+         image: mongo
+         ports:
+           - containerPort: 27017
+         env:
+           - name: mongo-username
+             valueFrom:
+               configMapKeyRef:
+                 key: mongo-username
+                 name: mongo-configmap
+           - name: mongo-password
+             valueFrom:
+               configMapKeyRef:
+                 key: mongo-password
+                 name: mongo-configmap
+  serviceName:
+    mongoService
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongoService
+spec:
+  selector:
+    app: mongo-state
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+
+
+
