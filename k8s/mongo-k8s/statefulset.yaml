@@ -45,7 +45,7 @@ spec:
           ports:
             - containerPort: 27017
           volumeMounts:
-            - mountPath: mongo-presistent-store
+            - mountPath: mongo-volume
               name: /data/db
 
         - name: mongo-config
@@ -55,13 +55,3 @@ spec:
               value: "role=mongo,environment=test"
             - name: KUBERNETES_SERVICE_NAME
               value: mongo-service
-
-  volumeClaimTemplates:
-      - metadata:
-          name: mongo-presistent-storage
-      - spec:
-          accessModes: [ "ReadWriteOnce" ]
-          storageClassName: faster
-          resources:
-            requests:
-              storage: 2Gi
