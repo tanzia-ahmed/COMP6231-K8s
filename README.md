@@ -36,7 +36,7 @@ files. However, it is only for the learning purpose and does not directly
 link to our project. <i> Directory will be removed soon!</i>
 
 ## Google Kubernetes Engine.
-To deploy the cluster of nodes/machine we decided to use GCP - Google Cloud Platform tools as it provide $300 worth free credit which can be used within 30 days. To create the cluster with specifications we used google cloud command line interface. Following steps are required to install the cli-tool and manage the cluster. 
+To deploy the cluster of nodes/machine we decided to use GCP - Google Cloud Platform tools as it provide $300 worth free credit which can be used within 90 days. To create the cluster with specifications we used google cloud command line interface. Following steps are required to install the cli-tool and manage the cluster. 
 
 - Install the command-line tool from the dockerhub and run the container from it 
     ``` 
