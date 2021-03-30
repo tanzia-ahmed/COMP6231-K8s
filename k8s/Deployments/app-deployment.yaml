@@ -7,7 +7,7 @@ metadata:
     app: web-app
 
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: web-app
@@ -20,15 +20,34 @@ spec:
       containers:
         - name: test-repo
           image: sareenv/test-repo:1
+          resources:
+            limits: 
+              memory: 512Mi
+              cpu: 250m
           ports:
             - containerPort: 8080
+          env:
+
+            - name: username
+              valueFrom:
+                secretKeyRef:
+                  key: mongo-root-username
+                  name: mongo-secret
+
+            - name: password
+              valueFrom:
+                secretKeyRef:
+                  key: mongo-root-password
+                  name: mongo-secret
+
+            - name: dbUrl
+              value: mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
   name: web-app-service
-
 spec:
   type: LoadBalancer
   selector:
