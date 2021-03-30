@@ -56,6 +56,7 @@ app.get('/db-details', async (req, res) => {
         res.send({result})
     }catch (error) {
         const {username, password, dbUrl} = process.env
+        console.log(error)
         res.send({error, username, password, dbUrl})
     }
 })
