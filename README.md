@@ -68,7 +68,8 @@ gcloud container get-server-config --zone asia-east2-c
 ```
 In the cluster command shown in the next step the kubernetes 1.18.16-gke.500 is good enough for this project.
 
-``` gcloud container clusters create gke-project-comp6231 \
+``` 
+gcloud container clusters create gke-project-comp6231 \
 --cluster-version 1.18.16-gke.500 \
 --disk-size 200 \
 --num-nodes 1 \
