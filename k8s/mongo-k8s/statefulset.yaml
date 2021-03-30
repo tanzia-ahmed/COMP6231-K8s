@@ -45,8 +45,8 @@ spec:
           ports:
             - containerPort: 27017
           volumeMounts:
-            - mountPath: mongo-volume
-              name: /data/db
+            - mountPath: /data/db
+              name: mongo-volume
 
         - name: mongo-config
           image: cvallance/mongo-k8s-sidecar
