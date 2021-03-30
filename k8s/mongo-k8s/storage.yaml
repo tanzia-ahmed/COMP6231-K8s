@@ -11,7 +11,7 @@ parameters:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongo-volume
+  name: mongo-persistent-storage
 spec:
   storageClassName: faster
   accessModes:
