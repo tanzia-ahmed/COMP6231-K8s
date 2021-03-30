@@ -61,7 +61,7 @@ spec:
           name: mongo-presistent-storage
       - spec:
           accessModes: [ "ReadWriteOnce" ]
-          storageClassName: "fast-ssd"
+          storageClassName: "faster"
           resources:
             requests:
               storage: 2Gi
