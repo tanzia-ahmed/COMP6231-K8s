@@ -78,7 +78,7 @@ gcloud container clusters create gke-project-comp6231 \
 --no-enable-cloud-monitoring  \
 --zone asia-east2-c
 ```
-- Install the Kubeclt and run the operations.
+
 
 - Delete the Cluster After Testing. 
 ```
@@ -86,9 +86,6 @@ gcloud container clusters delete gke-project-comp6231 --zone asia-east2-c
 ```
 Since we have limited quota we need to delete the cluster after performing the operations.
 
-```
-gcloud container clusters delete gke-project-comp6231 --zone asia-east2-c
-```
 
 ## Authors. 
 The Kubernetes project is developed for COMP6231 module and 
