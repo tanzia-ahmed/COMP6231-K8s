@@ -38,8 +38,8 @@ app.get('/fail', (req, res) => {
 
 async function dbConnection() {
     try {
-        const {username, password, dbUrl} = process.env
-        const url = `mongodb://${username}:${password}@${dbUrl}`
+        
+        const url = "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo"
         console.log(url)
         const result = await mongoose.connect(url)
         console.log("The result result was " + result)
@@ -55,9 +55,8 @@ app.get('/db-details', async (req, res) => {
         const result = await dbConnection();
         res.send({result})
     }catch (error) {
-        const {username, password, dbUrl} = process.env
         console.log(error)
-        res.send({error, username, password, dbUrl})
+        res.send({"Message": "Connection error ", error})
     }
 })
 
