@@ -38,10 +38,13 @@ app.get('/fail', (req, res) => {
 
 async function dbConnection() {
     try {
-        
-        const url = "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo"
+        // test this connection.
+        const url = "mongodb://mongo‑0.mongo:27017,mongo‑1.mongo:27017,mongo‑2.mongo/myproject?replicaSet=rs0"
         console.log(url)
-        const result = await mongoose.connect(url)
+        const result = await mongoose.connect(url, {
+            useNewUrlParser: true,
+            replicaSet: {readPreference: 'secondary'}
+        })
         console.log("The result result was " + result)
         return {username, password, dbUrl}
     } catch (error) {
