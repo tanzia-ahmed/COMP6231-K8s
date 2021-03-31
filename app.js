@@ -48,6 +48,11 @@ app.get('/', async (req, res) => {
 
 });
 
+// Need this to show self recover
+app.get('/fail', (req, res) => {
+  process.exit(1)
+})
+
 app.post('/create-news',jsonParser, async (req, res) => {
   
   try {
