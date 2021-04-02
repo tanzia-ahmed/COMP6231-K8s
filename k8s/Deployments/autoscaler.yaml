@@ -11,9 +11,4 @@ spec:
     name: app-deployment
   minReplicas: 3
   maxReplicas: 6
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target: Utilization
-        averageUtilization: 30
+  targetCPUUtilizationPercentage: 30
