@@ -87,6 +87,17 @@ gcloud container clusters delete gke-project-comp6231 --zone asia-east2-c
 Since we have limited quota we need to delete the cluster after performing the operations.
 
 
+## AutoScaling & Load Testing. 
+In the Kubernetes cluster we are using HPA (Horizontal Pod Autoscaler) and following command is being used to scale the app-deployment from minimum of 3 pods to 6 pods to manage the cpu utilisation in the cluster.
+```
+    kubectl autoscale deployment app-deployment --cpu-percent=30 --min=3 --max=6
+```
+Furthermore, to perform the load testing we are using Autocannon library from npm.com and can be found at <a href="https://www.npmjs.com/package/autocannon"> here </a> Once it is installed following command was used to send the traffic to the load-balancing service of the Node.js Api.
+
+```
+autocannon -c 2000 -d 10 -p 200 EXTERNAL_IP
+```
+
 ## Authors. 
 The Kubernetes project is developed for COMP6231 module and 
  the repository is maintained by following authors.
