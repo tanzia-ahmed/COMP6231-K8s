@@ -9,6 +9,11 @@ spec:
   scaleTargetRef:
     kind: Deployment
     name: app-deployment
-  minReplicas: 1
-  maxReplicas: 5
-  targetCPUUtilizationPercentage: 3
+  minReplicas: 3
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target: Utilization
+        averageUtilization: 30
