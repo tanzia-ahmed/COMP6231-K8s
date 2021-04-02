@@ -12,4 +12,4 @@ spec:
     name: "app-deployment"
   minReplicas: 3
   maxReplicas: 6
-  targetCPUUtilizationPercentage: 30
+  averageUtilization: 30
