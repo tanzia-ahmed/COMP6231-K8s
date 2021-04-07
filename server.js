@@ -7,10 +7,20 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
+const MongoClient = require('mongodb').MongoClient;
 const app = new express()
 
 const port = process.env.PORT || 8080
 dotenv.config()
+
+app.get('/db-2', (req, res) => {
+    MongoClient.connect(url, function(err, db) {
+        if (err) { return res.send(err) }
+        res.send("Database created!")
+        db.close();
+    });
+})
+
 
 app.get('/', (req, res) => {
     res.json({
@@ -32,6 +42,10 @@ app.get('/fail', (req, res) => {
     process.exit(1)
 })
 
+
+const url = "mongodb://mongo-0.mongo.mongo.svc.cluster.local:27017,mongo-1.mongo.mongo.svc.cluster.local:27017,mongo-2.mongo.mongo.svc.cluster.local:27017/dbname_?replicaSet=rs0`
+
+
 /*
  Db connection testing and stuff.
 * */
@@ -39,7 +53,6 @@ app.get('/fail', (req, res) => {
 async function dbConnection() {
     try {
         // test this connection.
-        const url = "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/dbname"
         await mongoose.createConnection(url, {
             useNewUrlParser: true,
             db: {native_parser: true},

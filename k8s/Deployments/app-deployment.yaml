@@ -30,7 +30,7 @@ spec:
             - containerPort: 8080
           env:
             - name: dbUrl
-              value: mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo
+              value: mongodb://mongo-0.mongo.mongo.svc.cluster.local:27017,mongo-1.mongo.mongo.svc.cluster.local:27017,mongo-2.mongo.mongo.svc.cluster.local:27017/dbname_? 
 ---
 
 apiVersion: v1
