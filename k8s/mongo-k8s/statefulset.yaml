@@ -39,7 +39,7 @@ spec:
           command:
             - mongod
             - "--bind_ip"
-            - 0.0.0.0
+            - "0.0.0.0"
             - "--replSet"
             - rs0
             - "--smallfiles"
