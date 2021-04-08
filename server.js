@@ -46,7 +46,7 @@ async function dbConnection() {
         const url = "mongodb://mongo-0.mongo-service.default.svc.cluster.local,mongo-1.mongo-service.default.svc.cluster.local,mongo-2.mongo-service.default.svc.cluster.local:27017/db_name?replicaSet=rs0"
         await mongoose.createConnection(url,  {
             useNewUrlParser: true,
-            dbName: 'myDb' // Specify the database here
+            dbName: 'myDb'
           }          
         )
         console.log("Connected to database")
