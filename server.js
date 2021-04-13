@@ -1,12 +1,9 @@
-
-/*
-* 1. Push the image to the dockerhub.
-* 2.The objective is to test the fault tolerance of the system.
-* */
-
 const express = require('express')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
+const fs = require('fs')
+const News = require('./Models/News')
+
 const app = new express()
 
 const port = process.env.PORT || 8080
@@ -25,48 +22,21 @@ app.get('/', (req, res) => {
     })
 })
 
-/** 
- * This would exist the system but let's check if k8s can back this up or not 
- * if not then may be we can make case of unhandled execptions in the system.
- * */
-
 app.get('/fail', (req, res) => {
     process.exit(1)
 })
 
 
-
-
-/*
- Db connection testing and stuff.
-* */
-
-async function dbConnection() {
+async function databaseConnection() {
     try {
         const url = "mongodb://mongo-0.mongo-service.default.svc.cluster.local,mongo-1.mongo-service.default.svc.cluster.local,mongo-2.mongo-service.default.svc.cluster.local:27017/db_name?replicaSet=rs0"
-        await mongoose.createConnection(url,  {
-            useNewUrlParser: true,
-            dbName: 'myDb'
-          }          
-        )
-        console.log("Connected to database")
+        const options =  { useNewUrlParser: true, dbName: 'myDb' } 
+        await mongoose.createConnection(url, options)
         return true
     } catch (error) {
-        console.log(error)
-        console.log("It was fail")
         throw new Error(error)
     }
 }
-
-app.get('/db-details', async (req, res) => {
-    try {
-        const result = await dbConnection();
-        res.send({"result": result})
-    }catch (error) {
-        console.log(error)
-        res.send({"Message": "Connection error ", error})
-    }
-})
 
 process.on('SIGINT', function() {  
     mongoose.connection.close(function () { 
