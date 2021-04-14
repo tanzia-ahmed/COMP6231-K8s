@@ -8,7 +8,6 @@ const port = process.env.PORT || 8080
 dotenv.config()
 
 
-
 app.get('/', (req, res) => {
     res.json({
         'from': process.env.PS || null,
@@ -38,11 +37,20 @@ async function databaseConnection() {
     }
 }
 
+app.get('/database', (_req, res) => {
+    try {
+        const result = databaseConnection()
+        res.send({"connection-status": result})
+    } catch (error){
+        res.send({"connection-status": false})
+    }
+})
+
 process.on('SIGINT', function() {  
     mongoose.connection.close(function () { 
       console.log("Moongoose disconnecting the database"); 
       process.exit(0); 
     }); 
-  }); 
+}); 
 
 app.listen(port, () => "Server is listening on default port")
