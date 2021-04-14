@@ -20,6 +20,7 @@ spec:
       containers:
         - name: test-repo
           image: sareenv/test-repo:1
+          imagePullPolicy: Always
           resources:
             limits: 
               memory: 512Mi
