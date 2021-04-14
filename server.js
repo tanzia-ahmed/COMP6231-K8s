@@ -2,7 +2,6 @@ const express = require('express')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const fs = require('fs')
-const News = require('./Models/News')
 
 const app = new express()
 
@@ -30,7 +29,9 @@ app.get('/fail', (req, res) => {
 async function databaseConnection() {
     try {
         const url = "mongodb://mongo-0.mongo-service.default.svc.cluster.local,mongo-1.mongo-service.default.svc.cluster.local,mongo-2.mongo-service.default.svc.cluster.local:27017/db_name?replicaSet=rs0"
-        const options =  { useNewUrlParser: true, dbName: 'myDb' } 
+        const options =  { useNewUrlParser: true, dbName: 'myDb', db: {
+            readPreference: "secondaryPreferred",
+        }} 
         await mongoose.createConnection(url, options)
         return true
     } catch (error) {
