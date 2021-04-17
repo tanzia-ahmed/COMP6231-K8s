@@ -28,6 +28,11 @@ const newsSchema = new Schema({
     type: String,
     required: false
   },
+  published: {
+    type: Date,
+    required: false
+  },
+
 }, { timestamps: true });
 
 newsSchema.plugin(mongoosePaginate);
