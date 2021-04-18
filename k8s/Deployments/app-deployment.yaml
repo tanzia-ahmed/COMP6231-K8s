@@ -7,7 +7,7 @@ metadata:
     app: web-app
 
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: web-app
@@ -20,15 +20,24 @@ spec:
       containers:
         - name: test-repo
           image: sareenv/test-repo:1
+          imagePullPolicy: Always
+          resources:
+            limits: 
+              memory: 512Mi
+              cpu: 260m
+            requests:
+              cpu: 250m
           ports:
             - containerPort: 8080
+          env:
+            - name: dbUrl
+              value: mongodb://mongo-0.mongo.mongo.svc.cluster.local:27017,mongo-1.mongo.mongo.svc.cluster.local:27017,mongo-2.mongo.mongo.svc.cluster.local:27017/dbname_? 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
   name: web-app-service
-
 spec:
   type: LoadBalancer
   selector:
@@ -37,4 +46,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
-      nodePort: 30001
+      nodePort: 30002
