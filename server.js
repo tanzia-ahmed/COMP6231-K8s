@@ -17,7 +17,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
 
 
-const dbURI = "mongodb://root:example@localhost:27017/newsDatabase?authSource=admin";
+const dbURI = "mongodb://mongo-0.mongo-service.default.svc.cluster.local,mongo-1.mongo-service.default.svc.cluster.local,mongo-2.mongo-service.default.svc.cluster.local:27017/News?replicaSet=rs0";
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(result => {
