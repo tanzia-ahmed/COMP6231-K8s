@@ -7,6 +7,7 @@ const cors = require('cors');
 var session = require('express-session');
 // create application/json parser
 var jsonParser = bodyParser.json()
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 
@@ -193,3 +194,68 @@ app.get('/delete/:uuid?/', async (req, res) => {
   }
 
 });
+
+
+app.get('/create/', async (req, res) => {
+  
+  try {
+    res.status(200).render('create');
+  } 
+  catch (error) 
+  {
+    if (error.name === "ValidationError") {
+      let errors = {};
+
+      Object.keys(error.errors).forEach((key) => {
+        errors[key] = error.errors[key].message;
+      });
+
+      return res.status(400).send(errors);
+    }
+    res.status(500).send(error);
+    console.log(error)
+  }
+
+});
+
+app.post("/create/",async(req,res)=>{
+  let news = new News(req.body);
+  news.uuid = uuidv4(); 
+  news.published = Date.now();
+  news.save();
+  res.status(201).redirect('/search');
+})
+
+app.get('/edit/:uuid?/', async (req, res) => {
+  
+  try {
+    let l_uuid = req.params.uuid;
+ 
+    let news = await News.find({ uuid: l_uuid }).exec();
+    res.status(200).render('edit',{"news":JSON.stringify(news[0])});
+
+  } 
+  catch (error) 
+  {
+    if (error.name === "ValidationError") {
+      let errors = {};
+
+      Object.keys(error.errors).forEach((key) => {
+        errors[key] = error.errors[key].message;
+      });
+
+      return res.status(400).send(errors);
+    }
+    res.status(500).send(error);
+    console.log(error)
+  }
+
+});
+
+
+app.post("/update/",async(req,res)=>{
+  let news = new News(req.body);
+  let PastNews = await News.updateOne({ text:req.body.text,title:req.body.title,url:req.body.url,author:req.body.author,language:req.body.language}).exec();
+  news.save();
+  res.status(201).redirect('/search');
+})
