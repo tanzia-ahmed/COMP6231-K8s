@@ -94,12 +94,12 @@
       getData(e.target.value);
     }
     document.getElementById("search").onclick = (e)=>{
-      getData(document.getElementById('subject').value);
+      getData(document.getElementById('search').value);
     }
 
     function getData(value){
   
-      window.location = "http://"+window.location.hostname+":8080/search/"+value+"/";
+      window.location = "http://"+window.location.hostname+"/search/"+value+"/";
     }
   }   
   </script>

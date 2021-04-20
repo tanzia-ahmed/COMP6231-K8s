@@ -23,7 +23,7 @@
             
             <div class="col-md-6 p-3" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box iconbox-blue" style="height: 50vh;">
-              <h3> <a href="<%= article.url%>"><%= article.title %> </a></h3>
+              <h3> <a href="/news/<%= article.uuid%>"><%= article.title %> </a></h3>
               <% if (article.text.length>300){ %> 
                 <p class="text-justify"><%= article.text.substring(0, 400)+"...." %> </p>
               <% } else {%>

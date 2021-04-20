@@ -16,17 +16,17 @@ app.use(morgan('tiny'));
 app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
 
-
 const dbURI = "mongodb://mongo-0.mongo-service.default.svc.cluster.local,mongo-1.mongo-service.default.svc.cluster.local,mongo-2.mongo-service.default.svc.cluster.local:27017/News?replicaSet=rs0";
-
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+const options =  { useNewUrlParser: true, dbName: 'News', useUnifiedTopology: true, 
+            readPreference: 'nearest',
+        } 
+mongoose.connect(dbURI, options)
   .then(result => {
-      app.listen(8080);
+      
       console.log("Connected to the Database");
       console.log("Listening on port 8080");
     })
   .catch(err => console.log(err));
-
 
 
 
@@ -259,3 +259,5 @@ app.post("/update/",async(req,res)=>{
   news.save();
   res.status(201).redirect('/search');
 })
+
+app.listen(8080);
