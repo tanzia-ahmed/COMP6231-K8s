@@ -18,9 +18,10 @@
             <p class="text-justify"> <%= news.text %></p>
             <br>
             <br>
-            <p class="text-right">Original link: <%= news.url %></p>
+            <p class="text-right">Original link: <a href="<%= news.url %> "><%= news.url %></a></p>
             <br>
             <a href="/delete/<%= news.uuid %>"><button class="btn btn-danger">Delete</button></a>
+            <a href="/edit/<%= news.uuid %>"><button class="btn btn-warning">Update</button></a>
             <% } else {%>
             <div class="mt-5">
               <h1>This news is not available</h1>
