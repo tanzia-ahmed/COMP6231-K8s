@@ -87,6 +87,12 @@ gcloud container clusters delete gke-project-comp6231 --zone asia-east2-c
 Since we have limited quota we need to delete the cluster after performing the operations.
 
 
+## Manual MongoDB Replicaset Scaling.
+
+```
+    kubectl scale statefulsets mongo --replicas=4
+```
+
 ## AutoScaling & Load Testing. 
 In the Kubernetes cluster we are using HPA (Horizontal Pod Autoscaler) and following command is being used to scale the app-deployment from minimum of 3 pods to 6 pods to manage the cpu utilisation in the cluster.
 ```
